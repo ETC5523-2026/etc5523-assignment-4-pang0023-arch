@@ -1,0 +1,10 @@
+Package: clutchserve
+Title: Explore Professional Tennis Serving Under Pressure 
+Version: 0.0.0.1
+Authors@R: 
+    person("Pei Sin", "Ang", , "psang0023@student.monash.edu", role = c("aut", "cre"))
+Description: Comparing how professional players win their pressure points.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.1.0
