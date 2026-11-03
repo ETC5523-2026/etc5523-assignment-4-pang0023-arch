@@ -109,6 +109,7 @@ serve_pressure <- serve_points |>
     year     = lubridate::year(date)
   ) |> 
   filter(serve_pts > 0) |> 
+  filter(year >= 1990) |> 
   select(match_id, date, year, tournament, round, surface, player, opponent,
          bp_pts, bp_won, deuce_pts, deuce_won, serve_pts, serve_won) |> 
   arrange(desc(date))

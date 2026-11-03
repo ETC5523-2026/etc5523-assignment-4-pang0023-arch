@@ -53,6 +53,8 @@ Cleaning steps (see \code{data-raw/serve_pressure.R}):
 correct version cannot be identified.
 \item Two Davis Cup rows (2024-09-15) with values shifted into the wrong
 columns were dropped from the match details, removing one match.
+\item Matches before 1990 were removed because too few were recorded per year
+to compare players reliably.
 }
 
 Matches are charted by volunteers, so the data over-represents
