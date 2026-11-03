@@ -1,10 +1,13 @@
 Package: clutchserve
-Title: Explore Professional Tennis Serving Under Pressure 
-Version: 0.0.0.1
+Title: Explore Professional Tennis Serving Under Pressure
+Version: 0.0.0.9000
 Authors@R: 
-    person("Pei Sin", "Ang", , "psang0023@student.monash.edu", role = c("aut", "cre"))
+    person("Pei Sin", "Ang", , "pang0023@student.monash.edu", role = c("aut", "cre"))
 Description: Comparing how professional players win their pressure points.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.1.0
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Config/roxygen2/version: 8.1.0
