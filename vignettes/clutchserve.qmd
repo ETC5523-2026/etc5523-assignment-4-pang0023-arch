@@ -11,6 +11,8 @@ knitr:
 ---
 
 ```{r setup}
+#| message: false
+
 library(clutchserve)
 library(dplyr)
 ```
