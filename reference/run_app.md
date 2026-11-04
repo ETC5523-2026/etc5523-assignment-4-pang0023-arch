@@ -6,19 +6,19 @@ pressure.
 ## Usage
 
 ``` r
-run_app(...)
+run_app()
 ```
-
-## Arguments
-
-- ...:
-
-  Further arguments passed to
-  [`shiny::runApp()`](https://rdrr.io/pkg/shiny/man/runApp.html).
 
 ## Value
 
 Called for its side effect of launching the app.
+
+## Details
+
+The app has a funnel chart comparing every player's pressure-point drop
+with a typical player, and a year-by-year chart for one player. Use the
+sidebar to filter by surface and years, choose what counts as a pressure
+point, and set a minimum number of pressure points.
 
 ## Examples
 
