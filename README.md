@@ -13,6 +13,9 @@ pressure points (break points and optionally deuce) with how they serve
 on every other point. You can also visualise a player’s progression over
 time to see whether they’ve become more clutch across their career.
 
+**Website:**
+<https://etc5523-2026.github.io/etc5523-assignment-4-pang0023-arch/>
+
 ## Installation
 
 You can install the development version of clutchserve from
@@ -37,8 +40,8 @@ pressure has changed over time.
 
 ## Example
 
-`pressure_gap()` summarises each player’s point performance of each
-match (including pressure points and normal points).
+`pressure_gap()` summarises each player’s point performance across all
+their matches (including pressure points and normal points).
 
 ``` r
 library(clutchserve)
@@ -93,6 +96,7 @@ The package code is released under the MIT licence. The data is licensed
 
 ## Generative AI declaration
 
-I used Claude to debug data-cleaning script, edit the layout, styling
-and interactivity with ggiraph for the Shiny app. I checked and revised
-all generated code and text.
+I used Claude to debug data-cleaning script, edit the layout, styling,
+interactivity with ggiraph for the Shiny app, debug reactivity layout
+and debugging build_vignette error. I checked and revised all generated
+code and text.
