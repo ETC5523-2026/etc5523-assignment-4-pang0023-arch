@@ -4,16 +4,19 @@
 \alias{run_app}
 \title{Launch the clutchserve Shiny app}
 \usage{
-run_app(...)
-}
-\arguments{
-\item{...}{Further arguments passed to \code{\link[shiny:runApp]{shiny::runApp()}}.}
+run_app()
 }
 \value{
 Called for its side effect of launching the app.
 }
 \description{
 Opens the interactive app for exploring how players serve under pressure.
+}
+\details{
+The app has a funnel chart comparing every player's pressure-point drop
+with a typical player, and a year-by-year chart for one player. Use the
+sidebar to filter by surface and years, choose what counts as a pressure
+point, and set a minimum number of pressure points.
 }
 \examples{
 if (interactive()) {
