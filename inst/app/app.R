@@ -323,7 +323,7 @@ server <- function(input, output, session) {
 
     validate(need(
       nrow(trend) >= 2,
-      paste0(input$player, "has fewer than two years of matches recorded with ",
+      paste0(input$player, " has fewer than two years of matches recorded with ",
              "these settings. Widen the years or surfaces, or pick another player.")
     ))
 
