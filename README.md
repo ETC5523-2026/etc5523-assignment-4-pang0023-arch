@@ -5,13 +5,16 @@
 
 <!-- badges: end -->
 
+# clutchserve
+
 Do the greats really serve better when it matters most? The goal for
 **clutchserve** is to allow tennis fanatics who want to put the term
-“clutch” to test. It packages point-by-point data on men’s professional
-matches with an interactive dashboard to compare how players serve on
-pressure points (break points and optionally deuce) with how they serve
-on every other point. You can also visualise a player’s progression over
-time to see whether they’ve become more clutch across their career.
+“clutch” to the test. It packages point-by-point data on men’s
+professional matches with an interactive dashboard to compare how
+players serve on pressure points (break points and optionally deuce)
+with how they serve on every other point. You can also visualise a
+player’s progression over time to see whether they’ve become more clutch
+across their career.
 
 **Website:**
 <https://etc5523-2026.github.io/etc5523-assignment-4-pang0023-arch/>
@@ -47,31 +50,18 @@ their matches (including pressure points and normal points).
 library(clutchserve)
 
 pressure_gap(serve_pressure) |>
-  summary()
-#>        player       matches        pressure_pts     pressure_won    
-#>  Length   :941   Min.   :  1.00   Min.   :   0.0   Min.   :   0.00  
-#>  N.unique :941   1st Qu.:  1.00   1st Qu.:   9.0   1st Qu.:   5.00  
-#>  N.blank  :  0   Median :  2.00   Median :  20.0   Median :  11.00  
-#>  Min.nchar:  5   Mean   : 15.48   Mean   : 104.8   Mean   :  64.09  
-#>  Max.nchar: 29   3rd Qu.: 10.00   3rd Qu.:  81.0   3rd Qu.:  48.00  
-#>                  Max.   :722.00   Max.   :3437.0   Max.   :2266.00  
-#>                                                                     
-#>    serve_pts       serve_won         other_pts       other_won      
-#>  Min.   :   26   Min.   :    6.0   Min.   :   22   Min.   :    4.0  
-#>  1st Qu.:   79   1st Qu.:   46.0   1st Qu.:   71   1st Qu.:   42.0  
-#>  Median :  190   Median :  116.0   Median :  171   Median :  106.0  
-#>  Mean   : 1294   Mean   :  829.9   Mean   : 1189   Mean   :  765.9  
-#>  3rd Qu.:  832   3rd Qu.:  504.0   3rd Qu.:  759   3rd Qu.:  462.0  
-#>  Max.   :59860   Max.   :41465.0   Max.   :56423   Max.   :39199.0  
-#>                                                                     
-#>   pressure_pct      other_pct           gap            reliable      
-#>  Min.   :0.0000   Min.   :0.1818   Min.   :-0.75000   Mode :logical  
-#>  1st Qu.:0.5000   1st Qu.:0.5652   1st Qu.:-0.08473   FALSE:740      
-#>  Median :0.5833   Median :0.6081   Median :-0.02156   TRUE :201      
-#>  Mean   :0.5638   Mean   :0.5990   Mean   :-0.03191                  
-#>  3rd Qu.:0.6441   3rd Qu.:0.6442   3rd Qu.: 0.04141                  
-#>  Max.   :1.0000   Max.   :0.9231   Max.   : 0.36508                  
-#>  NAs    :16                        NAs    :16
+  head()
+#> # A tibble: 6 × 12
+#>   player         matches pressure_pts pressure_won serve_pts serve_won other_pts
+#>   <chr>            <int>        <dbl>        <dbl>     <dbl>     <dbl>     <dbl>
+#> 1 Roger Federer      722         3437         2266     59860     41465     56423
+#> 2 Novak Djokovic     550         3119         1996     45548     30468     42429
+#> 3 Rafael Nadal       424         2598         1659     34693     22879     32095
+#> 4 Andy Murray        256         1810         1093     21876     13906     20066
+#> 5 Hubert Hurkacz     319         1624         1082     26464     18056     24840
+#> 6 Daniil Medved…     284         1579          997     22372     14786     20793
+#> # ℹ 5 more variables: other_won <dbl>, pressure_pct <dbl>, other_pct <dbl>,
+#> #   gap <dbl>, reliable <lgl>
 ```
 
 ## Data

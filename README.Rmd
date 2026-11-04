@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-Do the greats really serve better when it matters most? The goal for **clutchserve** is to allow tennis fanatics who want to put the term "clutch" to test. It packages point-by-point data on men's professional matches with an interactive dashboard to compare how players serve on pressure points (break points and optionally deuce) with how they serve on every other point. You can also visualise a player's progression over time to see whether they've become more clutch across their career.
+# clutchserve
+
+Do the greats really serve better when it matters most? The goal for **clutchserve** is to allow tennis fanatics who want to put the term "clutch" to the test. It packages point-by-point data on men's professional matches with an interactive dashboard to compare how players serve on pressure points (break points and optionally deuce) with how they serve on every other point. You can also visualise a player's progression over time to see whether they've become more clutch across their career.
 
 **Website:** <https://etc5523-2026.github.io/etc5523-assignment-4-pang0023-arch/>
 
@@ -44,7 +46,7 @@ The app shows every player as a dot on a funnel chart, compared with a typical p
 library(clutchserve)
 
 pressure_gap(serve_pressure) |>
-  summary()
+  head()
 ```
 
 ## Data 
