@@ -1,11 +1,11 @@
-#' Serving under pressure in charted men's tennis matches
+#' Serving under pressure in recorded men's tennis matches
 #'
 #' Service points played and won by each player in professional men's
 #' matches charted by the Match Charting Project, split into break points,
 #' deuce points and all service points. Use it to compare how often a
 #' player wins their service points under pressure versus normally.
 #'
-#' @format A tibble with 15,072 rows and 14 columns. Each row is one player
+#' @format A tibble with 14570 rows and 14 columns. Each row is one player
 #'   in one match, counting only points where that player was serving.
 #' \describe{
 #'   \item{match_id}{Match identifier from the Match Charting Project.}
@@ -28,8 +28,7 @@
 #'
 #' @details
 #' Break points and deuce points come from the `KeyPointsServe` file;
-#' total service points come from the `Overview` file, because the
-#' `STotal` row in `KeyPointsServe` only counts break, game and deuce points.
+#' total service points come from the `Overview` file.
 #'
 #' Cleaning steps (see `data-raw/serve_pressure.R`):
 #' * Exact duplicate rows were removed.
@@ -40,12 +39,13 @@
 #' * Matches before 1990 were removed because too few were recorded per year
 #'   to compare players reliably.
 #'
-#' Matches are charted by volunteers, so the data over-represents
-#' well-known players and big matches. It is not a random sample of
-#' professional tennis.
+#' Matches are charted by volunteers, so not all data is recorded.
+#' Well-known players and big matches are recorded more often than
+#' lesser-known/ lower ranked players. It should be taken as a random sample
+#' sample of professional tennis.
 #'
-#' @source Match Charting Project by Jeff Sackmann / Tennis Abstract,
-#'   <https://github.com/JeffSackmann/tennis_MatchChartingProject>.
+#' @source Match Charting Project by Jeff Sackmann
+#'   (<https://github.com/JeffSackmann/tennis_MatchChartingProject>).
 #'   Licensed under CC BY-NC-SA 4.0
 #'   (<https://creativecommons.org/licenses/by-nc-sa/4.0/>).
 "serve_pressure"

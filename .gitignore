@@ -1,3 +1,9 @@
 .Rproj.user
 .Rhistory
 .RData
+inst/doc
+/doc/
+/Meta/
+**/.quarto/
+docs
+.DS_Store

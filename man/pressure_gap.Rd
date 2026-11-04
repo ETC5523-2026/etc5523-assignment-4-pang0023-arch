@@ -7,7 +7,8 @@
 pressure_gap(
   data,
   pressure = c("break_points", "break_and_deuce"),
-  min_pressure = 30
+  min_pressure = 100,
+  by_year = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,9 @@ points played at deuce).}
 
 \item{min_pressure}{Minimum number of pressure points a player needs for
 their comparison to be marked as reliable.}
+
+\item{by_year}{If \code{TRUE}, gives one row per player per year (for trends
+over time). If \code{FALSE} (default), one row per player.}
 }
 \value{
 A tibble with one row per player, sorted by the number of
@@ -36,13 +40,16 @@ pressure points
 }
 }
 \description{
-For each player, adds up their service points across the supplied
+For each player, add up their service points across the supplied
 matches and compares the share won on pressure points with the share
 won on all other service points.
 }
 \examples{
 # All charted matches, break points only
 pressure_gap(serve_pressure)
+
+# Counting deuce points as pressure too, keeping players with at least 200
+pressure_gap(serve_pressure, pressure = "break_and_deuce", min_pressure = 200)
 
 # Clay courts only, counting deuce points as pressure too
 serve_pressure |>

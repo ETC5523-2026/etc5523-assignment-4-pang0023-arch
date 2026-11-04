@@ -12,5 +12,17 @@ Depends:
 LazyData: true
 Config/roxygen2/version: 8.1.0
 Imports: 
+    bslib,
     dplyr,
-    rlang
+    ggiraph,
+    ggplot2,
+    ggrepel,
+    rlang,
+    scales,
+    shiny
+Suggests: 
+    knitr,
+    quarto,
+    rmarkdown
+VignetteBuilder: knitr, quarto
+URL: https://etc5523-2026.github.io/etc5523-assignment-4-pang0023-arch/

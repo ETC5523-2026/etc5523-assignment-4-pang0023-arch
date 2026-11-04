@@ -1,13 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# clutchserve
-
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-The goal of clutchserve is to …
+Do the greats really serve better when it matters most? The goal for
+**clutchserve** is to allow tennis fanatics who want to put the term
+“clutch” to test. It packages point-by-point data on men’s professional
+matches with an interactive dashboard to compare how players serve on
+pressure points (break points and optionally deuce) with how they serve
+on every other point. You can also visualise a player’s progression over
+time to see whether they’ve become more clutch across their career.
 
 ## Installation
 
@@ -19,35 +23,76 @@ You can install the development version of clutchserve from
 pak::pak("ETC5523-2026/etc5523-assignment-4-pang0023-arch")
 ```
 
+## Launch the app
+
+``` r
+clutchserve::run_app()
+```
+
+The app shows every player as a dot on a funnel chart, compared with a
+typical player. Use the sidebar to filter by surface, years and choose
+what counts as a reliable pressure point and set that as the minimum
+number of pressure points. Click a player to see how their serve under
+pressure has changed over time.
+
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+`pressure_gap()` summarises each player’s point performance of each
+match (including pressure points and normal points).
 
 ``` r
 library(clutchserve)
-## basic example code
+
+pressure_gap(serve_pressure) |>
+  summary()
+#>        player       matches        pressure_pts     pressure_won    
+#>  Length   :941   Min.   :  1.00   Min.   :   0.0   Min.   :   0.00  
+#>  N.unique :941   1st Qu.:  1.00   1st Qu.:   9.0   1st Qu.:   5.00  
+#>  N.blank  :  0   Median :  2.00   Median :  20.0   Median :  11.00  
+#>  Min.nchar:  5   Mean   : 15.48   Mean   : 104.8   Mean   :  64.09  
+#>  Max.nchar: 29   3rd Qu.: 10.00   3rd Qu.:  81.0   3rd Qu.:  48.00  
+#>                  Max.   :722.00   Max.   :3437.0   Max.   :2266.00  
+#>                                                                     
+#>    serve_pts       serve_won         other_pts       other_won      
+#>  Min.   :   26   Min.   :    6.0   Min.   :   22   Min.   :    4.0  
+#>  1st Qu.:   79   1st Qu.:   46.0   1st Qu.:   71   1st Qu.:   42.0  
+#>  Median :  190   Median :  116.0   Median :  171   Median :  106.0  
+#>  Mean   : 1294   Mean   :  829.9   Mean   : 1189   Mean   :  765.9  
+#>  3rd Qu.:  832   3rd Qu.:  504.0   3rd Qu.:  759   3rd Qu.:  462.0  
+#>  Max.   :59860   Max.   :41465.0   Max.   :56423   Max.   :39199.0  
+#>                                                                     
+#>   pressure_pct      other_pct           gap            reliable      
+#>  Min.   :0.0000   Min.   :0.1818   Min.   :-0.75000   Mode :logical  
+#>  1st Qu.:0.5000   1st Qu.:0.5652   1st Qu.:-0.08473   FALSE:740      
+#>  Median :0.5833   Median :0.6081   Median :-0.02156   TRUE :201      
+#>  Mean   :0.5638   Mean   :0.5990   Mean   :-0.03191                  
+#>  3rd Qu.:0.6441   3rd Qu.:0.6442   3rd Qu.: 0.04141                  
+#>  Max.   :1.0000   Max.   :0.9231   Max.   : 0.36508                  
+#>  NAs    :16                        NAs    :16
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## Data
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+`serve_pressure` has one row per player per recorded match: 14,570 rows
+of men’s matches from 1990 onwards. It comes from [Match Charting
+Project](https://github.com/JeffSackmann/tennis_MatchChartingProject) by
+Jeff Sackmann, licensed [CC BY-NC-SA
+4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). The packaged
+data carries the same licence. The script that downloads and cleans it
+is in `data-raw/serve_pressure.R`.
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+The matches are recorded by volunteers, so famous players and big
+matches are overrepresented. Results describe the recorded matches, not
+every match a player has played. This data should not be taken as a
+random sample of professional tennis.
 
-You can also embed plots, for example:
+## Licence
 
-<img src="man/figures/README-pressure-1.png" alt="" width="100%" />
+The package code is released under the MIT licence. The data is licensed
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+## Generative AI declaration
+
+I used Claude to debug data-cleaning script, edit the layout, styling
+and interactivity with ggiraph for the Shiny app. I checked and revised
+all generated code and text.

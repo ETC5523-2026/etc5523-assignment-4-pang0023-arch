@@ -3,9 +3,9 @@
 \docType{data}
 \name{serve_pressure}
 \alias{serve_pressure}
-\title{Serving under pressure in charted men's tennis matches}
+\title{Serving under pressure in recorded men's tennis matches}
 \format{
-A tibble with 15,072 rows and 14 columns. Each row is one player
+A tibble with 14570 rows and 14 columns. Each row is one player
 in one match, counting only points where that player was serving.
 \describe{
 \item{match_id}{Match identifier from the Match Charting Project.}
@@ -27,8 +27,8 @@ points won).}
 }
 }
 \source{
-Match Charting Project by Jeff Sackmann / Tennis Abstract,
-\url{https://github.com/JeffSackmann/tennis_MatchChartingProject}.
+Match Charting Project by Jeff Sackmann
+(\url{https://github.com/JeffSackmann/tennis_MatchChartingProject}).
 Licensed under CC BY-NC-SA 4.0
 (\url{https://creativecommons.org/licenses/by-nc-sa/4.0/}).
 }
@@ -43,8 +43,7 @@ player wins their service points under pressure versus normally.
 }
 \details{
 Break points and deuce points come from the \code{KeyPointsServe} file;
-total service points come from the \code{Overview} file, because the
-\code{STotal} row in \code{KeyPointsServe} only counts break, game and deuce points.
+total service points come from the \code{Overview} file.
 
 Cleaning steps (see \code{data-raw/serve_pressure.R}):
 \itemize{
@@ -57,8 +56,9 @@ columns were dropped from the match details, removing one match.
 to compare players reliably.
 }
 
-Matches are charted by volunteers, so the data over-represents
-well-known players and big matches. It is not a random sample of
-professional tennis.
+Matches are charted by volunteers, so not all data is recorded.
+Well-known players and big matches are recorded more often than
+lesser-known/ lower ranked players. It should be taken as a random sample
+sample of professional tennis.
 }
 \keyword{datasets}

@@ -1,0 +1,158 @@
+---
+title: "Getting started with clutchserve"
+vignette: >
+  %\VignetteIndexEntry{Getting started with clutchserve}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r setup}
+library(clutchserve)
+library(dplyr)
+```
+
+## Do the greats really serve better when it matters most?
+
+Commentators love calling the great players "clutch". This package puts that
+to the test. It compares how often a player wins pressure points on their
+own serve with how often they win every other service point. Intuitively, most
+players' level drops a little under pressure, so the real question is: who drops 
+less than a typical player? 
+
+This guide shows how to install the package, launch the app, use its
+controls, and read what it shows.
+
+## Install
+
+The source code is on
+[GitHub](https://github.com/ETC5523-2026/etc5523-assignment-4-pang0023-arch).
+
+```r
+# install.packages("pak")
+pak::pak("ETC5523-2026/etc5523-assignment-4-pang0023-arch")
+```
+
+## Launch the app
+
+```r
+clutchserve::run_app()
+```
+
+The app opens in your browser. Everything it shows comes from the
+`serve_pressure` dataset included in the package.
+
+## Use the controls
+
+The sidebar has four controls. Each one changes which players and points are
+included:
+
+1. **Surface**: Filter matches on hard, clay, grass courts, or keep all selected for an overview.
+2. **Years**: Filter matches to a range of years (1990 onwards).
+3. **What counts as a pressure point?**: *Break points only*: points where the server is one point from losing the game. *Break points and deuce*: also counts points at 40–40.
+4. **Minimum pressure points per player**: Hide players with too few pressure points. A higher minimum leaves fewer players, but their results are more reliable.
+
+If the settings leave too few players, or no surface is ticked, the app
+explains what went wrong and how to fix it instead of showing an empty chart.
+
+## Read the main chart (funnel chart)
+
+Each dot is a player.
+
+- **x-axis:** how many pressure points the player faced (log scale).
+- **y-axis:** the player's pressure-point drop compared with a typical
+  player. Above 0 means they drop *less* than typical under pressure (more
+  clutch); below 0 means they drop *more*.
+- **Shaded band:** the range a typical player's result would usually fall in. 
+  It narrows to the right, because with more points the result
+  reflects skill more than luck.
+- **Colours:** teal dots are above the band (more clutch than typical),
+  coral dots are below it (less clutch), and grey dots are within normal
+  variation.
+
+Hover over a dot to see the player's numbers. Click a dot to follow that
+player in the chart below.
+
+## Read the player chart
+
+The second chart shows one player year by year:
+
+- **Dark green line:** share of pressure points won.
+- **Light green line:** share of other service points won.
+- **Dot size:** how many pressure points that year. Big dots are reliable;
+  small dots can swing a lot by chance.
+
+The closer the dark line is to the light line, the less pressure affects the
+player. Look at the overall pattern rather than single years.
+
+## How the comparison works
+
+The app uses `pressure_gap()`, which you can also use yourself. It gives one
+row per player:
+
+```{r}
+players <- pressure_gap(serve_pressure) |>
+  filter(reliable)
+
+players |>
+  select(player, pressure_pts, pressure_pct, other_pct, gap) |>
+  head()
+```
+
+- `pressure_pct`: share of pressure points won
+- `other_pct`: share of other service points won
+- `gap`: `pressure_pct` minus `other_pct`. A negative gap means the player
+  wins fewer pressure points than other points.
+
+The app then compares each player's gap with the **typical (median) gap**:
+
+```{r}
+typical_gap <- median(players$gap)
+typical_pct <- median(players$pressure_pct)
+
+players <- players |>
+  mutate(
+    vs_typical = gap - typical_gap,
+    luck_limit = 1.96 * sqrt(typical_pct * (1 - typical_pct) / pressure_pts),
+    verdict = case_when(
+      vs_typical >  luck_limit ~ "More clutch than typical",
+      vs_typical < -luck_limit ~ "Less clutch than typical",
+      TRUE                     ~ "Within normal variation"
+    )
+  )
+```
+
+With the default settings, `r nrow(players)` players have at least 100
+pressure points. A typical player wins
+`r round(abs(typical_gap) * 100, 1)` percentage points fewer of their
+pressure points than of their other service points.
+
+The `luck_limit` is the half-width of the shaded band:
+1.96 × √(p(1 − p) / n), where p is the typical share of pressure points won
+and n is the player's number of pressure points.
+
+A dot outside the band is likely a combination of skill and luck: the
+result is bigger than luck alone would usually produce, but with about
+200 players, around 10 would land outside a 95% band by chance anyway.
+So treat players outside the band as worth a closer look, not as proof
+they are clutch.
+
+## Limitations
+
+- **Not a random sample.** Volunteers chart the matches they choose, so
+  famous players and big matches are overrepresented. Results describe the
+  charted matches, not every match a player has played.
+- **Opponent strength is ignored.** A break point against a great returner
+  is harder to win, and top players often face each other in the matches
+  that get charted.
+- **Serving is only half the story.** The package only looks at points on a
+  player's own serve, not how they return.
+
+## Data source
+
+Match Charting Project by Jeff Sackmann
+(<https://github.com/JeffSackmann/tennis_MatchChartingProject>), licensed
+CC BY-NC-SA 4.0.

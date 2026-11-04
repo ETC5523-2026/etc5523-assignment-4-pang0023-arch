@@ -1,6 +1,6 @@
 #' Compare service points won under pressure versus normally
 #'
-#' For each player, adds up their service points across the supplied
+#' For each player, add up their service points across the supplied
 #' matches and compares the share won on pressure points with the share
 #' won on all other service points.
 #'
@@ -11,6 +11,8 @@
 #'   points played at deuce).
 #' @param min_pressure Minimum number of pressure points a player needs for
 #'   their comparison to be marked as reliable.
+#' @param by_year If `TRUE`, gives one row per player per year (for trends
+#'   over time). If `FALSE` (default), one row per player.
 #'
 #' @return A tibble with one row per player, sorted by the number of
 #'   pressure points:
@@ -27,17 +29,21 @@
 #' # All charted matches, break points only
 #' pressure_gap(serve_pressure)
 #'
+#' # Counting deuce points as pressure too, keeping players with at least 200
+#' pressure_gap(serve_pressure, pressure = "break_and_deuce", min_pressure = 200)
+#' 
 #' # Clay courts only, counting deuce points as pressure too
 #' serve_pressure |>
 #'   dplyr::filter(surface == "Clay") |>
 #'   pressure_gap(pressure = "break_and_deuce")
 #'
-#' @importFrom dplyr mutate group_by summarise n arrange desc
+#' @importFrom dplyr mutate group_by summarise n arrange desc 
 #' @importFrom rlang arg_match
 #' @export
 pressure_gap <- function(data,
                          pressure = c("break_points", "break_and_deuce"),
-                         min_pressure = 30) {
+                         min_pressure = 100,
+                         by_year = FALSE) {
   # Check the choice is one of the two allowed options (default: the first)
   pressure <- arg_match(pressure)
 
@@ -56,9 +62,15 @@ pressure_gap <- function(data,
       )
   }
 
-  data |>
     # Add up each player's points across all their matches
-    group_by(player) |>
+    if (by_year) {
+      data <- data |> 
+        group_by(player, year)
+    } else {
+      data <- data |> 
+        group_by(player)
+    }
+    data |> 
     summarise(
       matches      = n(),
       pressure_pts = sum(pressure_pts),
@@ -67,7 +79,7 @@ pressure_gap <- function(data,
       serve_won    = sum(serve_won),
       .groups = "drop"
     ) |>
-    # "Other" points are all service points that were not pressure points
+    # Other points are all service points that were not pressure points
     mutate(
       other_pts    = serve_pts - pressure_pts,
       other_won    = serve_won - pressure_won,
